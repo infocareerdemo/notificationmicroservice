@@ -1,0 +1,25 @@
+server:
+  port: 8080
+  
+spring:
+  application:
+    name: Gateway
+  cloud:
+    gateway:
+      routes:
+      - id: EmailService
+        uri: lb://EmailService
+        predicates:
+        - Method=GET
+        - Path=/api/**
+      - id: SMSService
+        uri: lb://SMSService
+        predicates:
+        - Method=GET
+        - Path=/test/**
+        
+eureka:
+  client:
+    service-url:
+      defaultZone :
+        http://localhost:8761/eureka/
